@@ -1,0 +1,43 @@
+import LoginPage from "../pages/1.LoginPage";
+import CartPage from "../pages/3.CartPage";
+import CheckoutPage from "../pages/4.CheckoutPage";
+
+const loginPage = new LoginPage();
+const cartPage = new CartPage();
+const checkoutPage = new CheckoutPage();
+
+describe("Checkout Feature", () => {
+
+    beforeEach(() => {
+
+        loginPage.visit();
+
+        cy.loginAsStandardUser();
+
+        cartPage.addProduct();
+
+        cartPage.openCart();
+
+    });
+
+    it("TC01 - should complete checkout successfully", () => {
+
+        // Act
+        checkoutPage.startCheckout();
+
+        checkoutPage.enterCheckoutInformation(
+            "Joshua",
+            "Aghware",
+            "100001"
+        );
+
+        checkoutPage.continueCheckout();
+
+        checkoutPage.finishCheckout();
+
+        // Assert
+        checkoutPage.verifySuccessfulOrder();
+
+    });
+
+});
