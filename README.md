@@ -57,13 +57,14 @@ QA FINAL PROJECT
 │
 ├── README.md
 │
+├── ├──.github
+│    └── workflows
+│        └── cypress.yml
+│
 ├── Bug Reports
 │   └── Bug Reports.docx
 │
 ├── Cypress
-│   ├──.github
-│    └── workflows
-│        └── cypress.yml
 │   ├── cypress
 │   │   ├── e2e
 │   │   │   ├── 1.login.cy.js
