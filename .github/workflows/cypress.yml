@@ -15,6 +15,10 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: Cypress
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
