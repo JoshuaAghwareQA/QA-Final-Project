@@ -1,4 +1,4 @@
-import LoginPage from "../pages/1.LoginPage";
+import LoginPage from "../pages/1.LoginPage.js";
 
 const loginPage = new LoginPage();
 

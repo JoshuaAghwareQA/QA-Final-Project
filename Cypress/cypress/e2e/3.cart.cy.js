@@ -1,5 +1,5 @@
-import LoginPage from "../pages/1.LoginPage";
-import CartPage from "../pages/3.CartPage";
+import LoginPage from "../pages/1.LoginPage.js";
+import CartPage from "../pages/3.CartPage.js";
 
 const loginPage = new LoginPage();
 const cartPage = new CartPage();

@@ -1,5 +1,5 @@
-import LoginPage from "../pages/1.LoginPage";
-import MenuPage from "../pages/5.MenuPage";
+import LoginPage from "../pages/1.LoginPage.js";
+import MenuPage from "../pages/5.MenuPage.js";
 
 const loginPage = new LoginPage();
 const menuPage = new MenuPage();
