@@ -1,0 +1,298 @@
+{
+  "info": {
+    "_postman_id": "a7299457-b53e-4ac4-9bfd-6dd18895a06f",
+    "name": "DummyJSON API Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53200795",
+    "_collection_link": "https://go.postman.co/collection/53200795-a7299457-b53e-4ac4-9bfd-6dd18895a06f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains users array\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(response.users).to.be.an(\"array\");\r",
+              "    pm.expect(response.users.length).to.be.above(0);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Each user has id, firstName and email\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    response.users.forEach(function (user) {\r",
+              "        pm.expect(user).to.have.property(\"id\");\r",
+              "        pm.expect(user).to.have.property(\"firstName\");\r",
+              "        pm.expect(user).to.have.property(\"email\");\r",
+              "    });\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"First name matches the request\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    const request = JSON.parse(pm.request.body.raw);\r",
+              "\r",
+              "    pm.expect(response.firstName).to.eql(request.firstName);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"User ID is generated\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(response.id).to.exist;\r",
+              "    pm.expect(response.id).to.be.a(\"number\");\r",
+              "    pm.expect(response.id).to.be.above(0);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"Josh\",\r\n  \"lastName\": \"Aghware\",\r\n  \"age\": 25\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/add",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Test 1: Status code should be 200\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Test 2: Response contains the correct deleted user ID\r",
+              "pm.test(\"Deleted user ID is 1\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "\r",
+              "    pm.expect(jsonData.id).to.eql(1);\r",
+              "});\r",
+              "\r",
+              "// Test 3: User is marked as deleted\r",
+              "pm.test(\"User is marked as deleted\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.isDeleted).to.be.true;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete User",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Mon, 13 Jul 2026 09:47:15 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "Etag",
+              "value": "W/\"5c7-li5ZHIUQj0nuPLsydfJ55zZRKaM\""
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=15552000; includeSubDomains"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin, Accept-Encoding"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-Dns-Prefetch-Control",
+              "value": "off"
+            },
+            {
+              "key": "X-Download-Options",
+              "value": "noopen"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "X-Ratelimit-Limit",
+              "value": "100"
+            },
+            {
+              "key": "X-Ratelimit-Remaining",
+              "value": "98"
+            },
+            {
+              "key": "X-Ratelimit-Reset",
+              "value": "1783936041"
+            },
+            {
+              "key": "X-Xss-Protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Cf-Cache-Status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DHiQwgfQuDEcmKFl7C%2BDzppIwEuKRNdumCQz1wGLiA3MNNPEpQQWQPl6YqKERi9CXdioqcVrI4BH2NDEbsOyVj3WvXhcitGELWW9%2B6MPjYLd29kW0Og%2BpkYMzTGFiA4k\"}]}"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "a1a75d7ecec6a62c-IAD"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"firstName\": \"Emily\",\n    \"lastName\": \"Johnson\",\n    \"maidenName\": \"Smith\",\n    \"age\": 29,\n    \"gender\": \"female\",\n    \"email\": \"emily.johnson@x.dummyjson.com\",\n    \"phone\": \"+81 965-431-3024\",\n    \"username\": \"emilys\",\n    \"password\": \"emilyspass\",\n    \"birthDate\": \"1996-5-30\",\n    \"image\": \"https://dummyjson.com/icon/emilys/128\",\n    \"bloodGroup\": \"O-\",\n    \"height\": 193.24,\n    \"weight\": 63.16,\n    \"eyeColor\": \"Green\",\n    \"hair\": {\n        \"color\": \"Brown\",\n        \"type\": \"Curly\"\n    },\n    \"ip\": \"42.48.100.32\",\n    \"address\": {\n        \"address\": \"626 Main Street\",\n        \"city\": \"Phoenix\",\n        \"state\": \"Mississippi\",\n        \"stateCode\": \"MS\",\n        \"postalCode\": \"29112\",\n        \"coordinates\": {\n            \"lat\": -77.16213,\n            \"lng\": -92.084824\n        },\n        \"country\": \"United States\"\n    },\n    \"macAddress\": \"47:fa:41:18:ec:eb\",\n    \"university\": \"University of Wisconsin--Madison\",\n    \"bank\": {\n        \"cardExpire\": \"05/28\",\n        \"cardNumber\": \"3693233511855044\",\n        \"cardType\": \"Diners Club International\",\n        \"currency\": \"GBP\",\n        \"iban\": \"GB74MH2UZLR9TRPHYNU8F8\"\n    },\n    \"company\": {\n        \"department\": \"Engineering\",\n        \"name\": \"Dooley, Kozey and Cronin\",\n        \"title\": \"Sales Manager\",\n        \"address\": {\n            \"address\": \"263 Tenth Street\",\n            \"city\": \"San Francisco\",\n            \"state\": \"Wisconsin\",\n            \"stateCode\": \"WI\",\n            \"postalCode\": \"37657\",\n            \"coordinates\": {\n                \"lat\": 71.814525,\n                \"lng\": -161.150263\n            },\n            \"country\": \"United States\"\n        }\n    },\n    \"ein\": \"977-175\",\n    \"ssn\": \"900-590-289\",\n    \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36\",\n    \"crypto\": {\n        \"coin\": \"Bitcoin\",\n        \"wallet\": \"0xb9fc2fe63b2a6c003f1c324c3bfa53259162181a\",\n        \"network\": \"Ethereum (ERC20)\"\n    },\n    \"role\": \"admin\",\n    \"isDeleted\": true,\n    \"deletedOn\": \"2026-07-13T09:47:15.702Z\"\n}"
+        }
+      ]
+    }
+  ]
+}

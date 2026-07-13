@@ -30,14 +30,13 @@ describe("Inventory", () => {
 
     it("TC03 - should intercept inventory requests", () => {
 
-        cy.intercept("GET", "**").as("pageRequest");
+        cy.intercept("GET", "**/inventory.html").as("inventoryPage");
 
         cy.reload();
 
-        cy.wait("@pageRequest");
+        cy.wait("@inventoryPage");
 
         inventoryPage.verifyInventoryLoaded();
-
     });
 
 });

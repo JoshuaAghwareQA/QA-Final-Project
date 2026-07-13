@@ -177,8 +177,7 @@ The following features were automated on SauceDemo:
 - Verify Cart Count
 
 ### Checkout
-- Complete Checkout
-- Validate Successful Order
+- Complete Checkout Process
 
 ### Logout
 - Logout Successfully
